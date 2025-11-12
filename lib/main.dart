@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:football_news/screens/menu.dart';
+import 'package:pbp_django_auth/pbp_django_auth.dart';
+import 'package:provider/provider.dart';
+import 'package:football_news/screens/login.dart';
 
 void main() {
   runApp(const MyApp());
@@ -8,16 +10,20 @@ void main() {
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
 
-  // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Flutter Demo',
-      theme: ThemeData(
-        colorScheme: ColorScheme.fromSwatch(primarySwatch: Colors.blue)
-            .copyWith(secondary: Colors.blueAccent[400]),
+    return MultiProvider(
+      providers: [
+        Provider(create: (_) => CookieRequest()),
+      ],
+      child: MaterialApp(
+        title: 'Football News',
+        theme: ThemeData(
+          primarySwatch: Colors.blue,
+          useMaterial3: true,
+        ),
+        home: const LoginPage(),
       ),
-      home: MyHomePage(), // remove `const` because MyHomePage constructor is not const
     );
   }
 }
